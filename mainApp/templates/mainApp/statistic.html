@@ -1,0 +1,8 @@
+{% extends "mainApp/wrapper.html" %}
+{% block content %}
+<h3>{{ object_list.count }} </h3>
+{% for c in object_list %}
+<h3>{{ c.top_id }} </h3>
+
+{% endfor %}
+{% endblock %}

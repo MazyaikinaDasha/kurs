@@ -1,0 +1,197 @@
+{% extends "mainApp/wrapper.html" %}
+{% block content %}
+    <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css" />
+
+<script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+
+<br><br>
+
+<style>
+.card-container:not(.manual-flip):hover .card,
+.card-container.hover.manual-flip .card{
+ -webkit-transform: rotateY( 180deg );
+-moz-transform: rotateY( 180deg );
+ -o-transform: rotateY( 180deg );
+ transform: rotateY( 180deg );
+}
+/* flip speed goes here */
+.card {
+ -webkit-transition: -webkit-transform .5s;
+ -moz-transition: -moz-transform .5s;
+ -o-transition: -o-transform .5s;
+ transition: transform .5s;
+-webkit-transform-style: preserve-3d;
+ -moz-transform-style: preserve-3d;
+ -o-transform-style: preserve-3d;
+ transform-style: preserve-3d;
+ position: relative;
+}
+
+.front, .back {
+ -webkit-backface-visibility: hidden;
+ -moz-backface-visibility: hidden;
+ -o-backface-visibility: hidden;
+ backface-visibility: hidden;
+ position: absolute;
+ top: 0;
+ left: 0;
+ background-color: #FFF;
+ box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+}
+.front {
+ background:#98d7ce;
+ z-index: 2;
+}
+.back {
+ -webkit-transform: rotateY( 180deg );
+ -moz-transform: rotateY( 180deg );
+ -o-transform: rotateY( 180deg );
+ transform: rotateY( 180deg );
+ z-index: 3;
+}
+
+.back .btn-simple{
+ position: absolute;
+ left: 0;
+ bottom: 4px;
+}
+.front .btn-simple{
+ position: absolute;
+ right: 0;
+ bottom: 4px;
+}
+
+.card-container, .front, .back {
+ width: 100%;
+ height: 300px;
+ border-radius: 4px;
+}
+.btn-simple{
+ opacity: .8;
+ color: #666666;
+ background-color: transparent;
+}
+
+.btn-simple:hover,
+.btn-simple:focus{
+ background-color: transparent;
+ box-shadow: none;
+ opacity: 1;
+}
+.btn-simple i{
+ font-size: 16px;
+}
+.card .name {
+ font-size: 45px;
+ line-height: 45px;
+ margin: 77px 0 0;
+ text-align: center;
+ text-transform: capitalize;
+}
+.serviceBox .service-icon{
+ width: 100px;
+ height: 100px;
+ line-height: 80px;
+ border-radius: 50%;
+ border: 3px solid #b3b3b3;
+ font-size: 50px;
+ color: #b3b3b3;
+ margin: 0 auto;
+ transition: all 0.5s ease-in-out;
+}
+.serviceBox:hover .service-icon{
+ transform: rotateY(360deg);
+
+}
+.serviceBox{
+ text-align: center;
+ padding: 10px 0 40px;
+ position: relative;
+}
+
+
+
+</style>
+<div class="container">
+ <div class="serviceBox">
+ <div class="service-icon">
+ <i class="fa fa-plus-circle" aria-hidden="true"></i>
+ </div>
+ <div class="service-content">
+ <br>
+ </div>
+ <div class="read">
+ <a href="{% url 'card_new' %}" class="btn btn-outline-info">Новая карта</a>
+ </div>
+ </div>
+
+
+
+ <br>
+<div class="row">
+{% for card in card %}
+<div class="col-md-4 col-sm-6">
+ <div class="card-container manual-flip">
+ <div class="card">
+ <div class="front">
+ <div class="content">
+ <div class="main">
+ <form action="{% url 'delete' card.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="удалить">
+</form>
+ <h3 class="name">{{card.question}}</h3>
+ </div>
+ <div class="footer">
+ <button class="btn btn-simple" onclick="rotateCard(this)">
+ <i class="fa fa-mail-forward"></i> Перевернуть
+ </button>
+ <div class="text-center">
+ <br>
+ <a href="{% url 'edit' card.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+ <a href="{% url 'stat' card.id %}"><i class="fa fa-bar-chart" aria-hidden="true"></i></i></a>
+ </div>
+ </div>
+ </div>
+ </div> <!-- end front panel -->
+
+ <div class="back">
+ <div class="content">
+ <div class="main">
+ <h3 class="name">{{card.answer}}</h3>
+ </div>
+ </div>
+ <div class="footer">
+ <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+ <i class="fa fa-reply"></i> Перевернуть
+ </button>
+ <div class="text-center">
+ <br>
+
+ </div>
+ </div>
+ </div> <!-- end back panel -->
+ </div> <!-- end card -->
+ </div> <!-- end card-container -->
+ </div> <!-- end col sm 3 -->
+ {% endfor %}
+ </div>
+ </div>
+
+<script>
+ function rotateCard(btn){
+ var $card = $(btn).closest('.card-container');
+ console.log($card);
+ if($card.hasClass('hover')){
+ $card.removeClass('hover');
+ } else {
+ $card.addClass('hover');
+ }
+ }
+</script>
+{% endblock %}

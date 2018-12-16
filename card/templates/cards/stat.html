@@ -1,0 +1,9 @@
+{% extends "mainApp/wrapper.html" %}
+{% block content %}
+{% for st in st %}
+<h1>Знаю</h1>
+<h1>{{st.statistic_success}}</h1>
+<h1>Всего слово тестировалось</h1>
+<h1>{{st.s}}</h1>
+{% endfor %}
+{% endblock %}

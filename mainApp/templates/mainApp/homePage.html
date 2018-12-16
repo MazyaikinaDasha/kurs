@@ -1,0 +1,87 @@
+{% extends "mainApp/wrapper.html" %}
+
+{% block content %}
+<!--{% include "mainApp/includes/some_html.html" %}-->
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css" />
+
+<br><br><br>
+
+<style>
+.serviceBox{
+ background: #fff;
+ text-align: center;
+ padding: 20px 0 40px;
+ position: relative;
+}
+.serviceBox:hover{
+ background:#98d7ce;
+}
+.serviceBox .service-icon{
+ width: 100px;
+ height: 100px;
+ line-height: 95px;
+ border-radius: 50%;
+ border: 3px solid #b3b3b3;
+ font-size: 50px;
+ color: #b3b3b3;
+ margin: 0 auto;
+ transition: all 0.5s ease-in-out;
+}
+.serviceBox:hover .service-icon{
+ transform: rotateY(360deg);
+ color: #fff;
+ border-color: #fff;
+ background: #4acab4;
+}
+</style>
+
+<div class="container">
+ <div class="row">
+
+ <div class="col-md-4 col-sm-6">
+ <div class="serviceBox">
+ <div class="service-icon">
+<i class="fa fa-bar-chart" aria-hidden="true"></i>
+ </div>
+ <div class="service-content">
+ <br>
+ </div>
+ <div class="read">
+ <a href="/statistic/" class="btn btn-default">Посмотреть статистику</a>
+ </div>
+ </div>
+ </div>
+
+ <div class="col-md-4 col-sm-6">
+ <div class="serviceBox">
+ <div class="service-icon">
+ <i class="fa fa-plus-circle" aria-hidden="true"></i>
+ </div>
+ <div class="service-content">
+ <br>
+ </div>
+ <div class="read">
+ <a href="{% url 'topic_new' %}" class="btn btn-default">Новая колода</a>
+ </div>
+ </div>
+ </div>
+
+ <div class="col-md-4 col-sm-6">
+ <div class="serviceBox">
+ <div class="service-icon">
+ <i class="fa fa-play" aria-hidden="true"></i>
+ </div>
+ <div class="service-content">
+ <br>
+ </div>
+ <div class="read">
+ <a href="/test/" class="btn btn-default">Тренировать</a>
+ </div>
+ </div>
+ </div>
+
+ {% include "mainApp/includes/new_topic.html" %}
+</div>
+</div>
+{% endblock %}
